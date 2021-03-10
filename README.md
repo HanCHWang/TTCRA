@@ -1,2 +1,2 @@
 # TTCRA
-TTCRA: Time Triggered Convex Relaxation for Quadratic Assignment Problem
+TTCRA: Time Triggered Convex Relaxation Algorithm for Quadratic Assignment Problem
