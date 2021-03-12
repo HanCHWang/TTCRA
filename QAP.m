@@ -1,7 +1,6 @@
 function [value] = QAP(X,W,mu)
-%QAP represent 
+%Convex relaxed QAP cost function
 
-value=trace(X'*W*X)-mu*norm(X,'fro')^2;
+value=X'*W*X-mu*norm(X,'fro')^2;
 
 end
-
