@@ -1,10 +1,10 @@
-function [Y]=DSProjection(X)
+function [Y]=DSProjection(X,N)
 %This function is used with project the residual of X to doubly stochastic
 %space
 
 
 %projection function: 1/2||X_Y||_F^2
-N=10;
+% N=10;
 A=[kron(eye(N),ones(1,N));kron(ones(1,N),eye(N))];
 
 % X=reshape(X,[],1);
