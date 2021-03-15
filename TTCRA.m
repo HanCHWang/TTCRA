@@ -1,11 +1,13 @@
 %iteratively solving QAP problem using simple gradient descent method
 
-clc
+% clc
 clear all
-N=10;
 
-permutation=zeros(N,N);
-load('W');
+% permutation=zeros(N,N);
+load('W50');
+N=sqrt(size(W,2));
+W_origin=W;
+% W=rand(N^2,N^2);
 
 X=1/N.*ones(N^2,1);
 X_square=reshape(X,N,N);
@@ -19,13 +21,17 @@ k=20;%time constant
 count=0;%counting
 stepsize=0.0001;
 
+%initial time
+tic
+
 %initial gradient
-%mu=min(real(eig(W)));
-grad=(W+W')*X-mu.*X;
-for i=1:200
+muL=min(real(eig(W)));
+muL_origin=muL;
+grad=(W+W')*X-muL.*X;%mu is inserted function, using muL instead
+for i=1:k*sqrt(size(W,2))
     X=X-stepsize.*grad;
 %     stepsize=stepsize;
-    if count<20
+    if count<k
         count=count+1;
     else
         count=1;
@@ -70,12 +76,19 @@ for i=1:200
         W(tmp_index,:)=[];
         W(:,tmp_index)=[];
         
-        mu=min(real(eig(W)));
-        grad=(W+W')*X-mu.*X;
+        muL=min(real(eig(W)));
     end
+    grad=(W+W')*X-muL.*X;
 end
-% QAP(X,W,mu)
 
+% QAP(X,W,mu)
+permutation(indexrow,indexcol)=1;
+
+%end time
+toc
+
+%show time
+disp(['Computing Time:',num2str(toc)]);
 
 % X=reshape(X,N,N);
-permutation
+QAP(reshape(permutation,[],1),W_origin,muL_origin)

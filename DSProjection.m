@@ -9,7 +9,7 @@ A=[kron(eye(N),ones(1,N));kron(ones(1,N),eye(N))];
 
 % X=reshape(X,[],1);
 Y=X;
-inverse=inv(A*A');
+inverse=pinv(A*A');
 for i=1:30
     
     
