@@ -3,9 +3,10 @@
 % clc
 clear all
 
-% permutation=zeros(N,N);
-load('W50');
+
+load('W30');
 N=sqrt(size(W,2));
+permutation=zeros(N,N);
 W_origin=W;
 % W=rand(N^2,N^2);
 

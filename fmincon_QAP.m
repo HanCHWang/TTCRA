@@ -45,6 +45,7 @@ end
 %end time
 toc
 disp(['Computing Time: ',num2str(toc)]);
+QAP(X,W,muL_min)
 % QAP(y,W,muL_min)
 
 
