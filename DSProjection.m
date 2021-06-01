@@ -10,7 +10,7 @@ A=[kron(eye(N),ones(1,N));kron(ones(1,N),eye(N))];
 % X=reshape(X,[],1);
 Y=X;
 inverse=pinv(A*A');
-for i=1:30
+for i=1:100
     
     
     mu=inverse*(ones(2*N,1)-A*Y);
