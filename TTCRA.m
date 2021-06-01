@@ -1,10 +1,10 @@
 %iteratively solving QAP problem using simple gradient descent method
 
 % clc
-clear all
+% clear all
 
-
-load('W30');
+function [value,time]=TTCRA(W)
+% load('W10');
 N=sqrt(size(W,2));
 permutation=zeros(N,N);
 W_origin=W;
@@ -17,25 +17,32 @@ X_square=reshape(X,N,N);
 indexcol=(1:N);
 indexrow=(1:N);
 
-k=20;%time constant
+k=40;%time constant
 
 count=0;%counting
-stepsize=0.0001;
+% stepsize=0.003;
 
 %initial time
 tic
 
 %initial gradient
-muL=min(real(eig(W)));
-muL_origin=muL;
-grad=(W+W')*X-muL.*X;%mu is inserted function, using muL instead
+% muL=min(real(eig(W)));
+% muL=-max_eigenvalue(-W);
+% muL_origin=muL;
+% grad=(W+W')*X-muL.*X;%mu is inserted function, using muL instead
+grad=(W+W')*X;
 for i=1:k*sqrt(size(W,2))
+    stepsize=grad'*W*grad/(grad'*(W+W')*grad);
     X=X-stepsize.*grad;
-%     stepsize=stepsize;
+% X=X-inv(W)*W*X;
+    %     stepsize=stepsize;
     if count<k
         count=count+1;
+        X=DSProjection(X,N);
     else
         count=1;
+%         X=DSProjection(X,N);
+%         reshape(X,N,N)
         column=fix(find(X==max(X,[],'all'))/N);
         row=rem(find(X==max(X,[],'all')),N);
         
@@ -77,9 +84,11 @@ for i=1:k*sqrt(size(W,2))
         W(tmp_index,:)=[];
         W(:,tmp_index)=[];
         
-        muL=min(real(eig(W)));
+        %         muL=min(real(eig(W)));
+        %         muL=-max_eigenvalue(-W);
     end
-    grad=(W+W')*X-muL.*X;
+    %     grad=(W+W')*X-muL.*X;
+    grad=(W+W')*X;
 end
 
 % QAP(X,W,mu)
@@ -89,7 +98,11 @@ permutation(indexrow,indexcol)=1;
 toc
 
 %show time
-disp(['Computing Time:',num2str(toc)]);
+% disp(['Computing Time:',num2str(toc)]);
 
 % X=reshape(X,N,N);
-QAP(reshape(permutation,[],1),W_origin,muL_origin)
+% QAP(reshape(permutation,[],1),W_origin,muL_origin)
+value=QAP(reshape(permutation,[],1),W_origin,0);
+perm=permutation;
+time=toc;
+end
