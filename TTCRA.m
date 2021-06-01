@@ -41,10 +41,10 @@ for i=1:k*sqrt(size(W,2))
         X=DSProjection(X,N);
     else
         count=1;
-%         X=DSProjection(X,N);
+        X=DSProjection(X,N);
 %         reshape(X,N,N)
-        column=fix(find(X==max(X,[],'all'))/N);
-        row=rem(find(X==max(X,[],'all')),N);
+        column=fix(find(X==max(X,[],'all'),1,'first')/N);
+        row=rem(find(X==max(X,[],'all'),1,'first'),N);
         
         %avoid zero
         if row==0
