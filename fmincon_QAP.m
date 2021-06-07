@@ -48,7 +48,7 @@ end
 %end time
 toc
 % disp(['Computing Time: ',num2str(toc)]);
-value=QAP(y,W,muL_min);
+value=QAP(y,W,0);
 % perm=reshape(y,N,N);
 time=toc;
 perm=reshape(y,N,N);
